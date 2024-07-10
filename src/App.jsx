@@ -1,6 +1,7 @@
 import {useState} from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { addTodos, checkTodos, deleteTodos } from "./redux/todosSlice";
+import { addTodos, deleteTodos } from "./redux/todosSlice";
+
 
 
 const App = () => {
@@ -9,10 +10,11 @@ const App = () => {
   const [text, setText] = useState("");
   const [alert, setAlert] = useState("")
   const dispatch = useDispatch()
+  let length = todos.length;
+  
 
   const handleChange = (e) => {
     setText(e.target.value);
-    console.log(text);
   };
 
   const addTodo = () => {
@@ -24,13 +26,9 @@ const App = () => {
       setAlert("Add a todo")
     }
 
-    console.log(todos)
   };
 
-  const checkTodo = (id) => {
-    dispatch(checkTodos(id))
-  }
-
+  
   const deleteTodo = (id) => {
     dispatch(deleteTodos(id))
   }
@@ -42,18 +40,18 @@ const App = () => {
       <h3>{alert}</h3>
       <ul>
         {todos.map((todo) => (
-          <div>
+          
             <li key={todo.id}
             style={{textDecoration: todo.completed ? "line-through" : "none"}}>
             {todo.text}
+            <button onClick={() => deleteTodo(todo.id)}>Delete</button>
             </li>
-            <button onClick={checkTodo}>Completed</button>
-            <button onClick={deleteTodo}>Delete</button>
-          </div>))}
+            
+          ))}
       </ul>
-      <input type="text" value={text} onChange={handleChange}/>
+      <input name="input" type="text" value={text} onChange={handleChange}/>
       <button onClick={addTodo}>Add Todo</button>
-      <h3>Total todos: {todos.length}</h3>
+      <h3>Total todos: {length}</h3>
         </div>
     </>
   );

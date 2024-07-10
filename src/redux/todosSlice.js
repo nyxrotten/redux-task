@@ -14,12 +14,7 @@ const todosSlice = createSlice({
             }
             state.push(newTodo)
         },
-        checkTodos: (state, action) => {
-            const todo = state.find((todo) => todo.id === action.payload);
-            if (todo) {
-                todo.completed = !todo.completed;
-            }
-        },
+
         deleteTodos: (state, action) => {
             const index = state.findIndex((todo) => todo.id === action.payload);
             if (index !== -1) {
@@ -29,5 +24,5 @@ const todosSlice = createSlice({
     }
 })
 
-export const { addTodos, checkTodos, deleteTodos } = todosSlice.actions;
+export const { addTodos, deleteTodos } = todosSlice.actions;
 export default todosSlice.reducer;
